@@ -1,9 +1,9 @@
 import Foundation
 
 struct ResponseData: Codable {
-    let coins: [CoinItem]
-    let nfts: [NFTItem]
-    let categories: [Category]
+    var coins: [CoinItem]
+    var nfts: [NFTItem]
+    var categories: [Category]
 }
 
 struct CoinItem: Codable {
@@ -20,9 +20,14 @@ struct Coin: Codable {
     let small: URL
     let large: URL
     let slug: String
-    let priceBtc: Double?
+    var priceBtc: Double?
     let score: Int
     let data: CoinData
+
+    enum CodingKeys: String, CodingKey {
+        case id, coinId, name, symbol, marketCapRank, thumb, small, large, slug, score, data
+        case priceBtc = "price_btc" // Mapping "price_btc" JSON key to `priceBtc` property
+    }
 }
 
 struct CoinData: Codable {
@@ -35,6 +40,14 @@ struct CoinData: Codable {
     let totalVolumeBtc: String?
     let sparkline: URL?
     let content: Content?
+
+    enum CodingKeys: String, CodingKey {
+        case price, marketCap, totalVolume, sparkline, content
+        case priceBtc = "price_btc"
+        case priceChangePercentage24h = "price_change_percentage_24h"
+        case marketCapBtc = "market_cap_btc"
+        case totalVolumeBtc = "total_volume_btc"
+    }
 }
 
 struct Content: Codable {

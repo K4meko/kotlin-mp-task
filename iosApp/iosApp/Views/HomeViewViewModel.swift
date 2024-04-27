@@ -4,6 +4,7 @@ import shared
 class HomeViewViewModel: ObservableObject {
     @Published var text = "Loading..."
     @Published var CoinData: ResponseData? = nil
+    @Published var btc_price: String? = nil
     init() {
         
      
@@ -17,6 +18,7 @@ class HomeViewViewModel: ObservableObject {
               
                 self.CoinData = responseData
                // print(CoinData)
+               
             } catch DecodingError.keyNotFound(let key, let context) {
                 print("Failed to decode JSON due to missing key '\(key.stringValue)' in the JSON data - \(context.debugDescription)")
             } catch {
