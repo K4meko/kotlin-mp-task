@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    id("app.cash.sqldelight") version "2.0.2"
+    kotlin("plugin.serialization") version "1.9.23"
+
 }
 
 kotlin {
@@ -27,7 +30,8 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.ktor.client.core)
             implementation(libs.kotlinx.coroutines.core)
-           // implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.22")
+
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
         }
         androidMain.dependencies {
@@ -51,5 +55,12 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+sqldelight {
+    databases {
+        create("Database") {
+            packageName.set("com.example")
+        }
     }
 }
