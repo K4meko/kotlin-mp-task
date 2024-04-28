@@ -13,19 +13,22 @@ struct HomeView: View {
                 .padding(10)
             
             if let cryptoData = viewModel.trendingCoinData{
-                VStack{
+                VStack(alignment: .leading) {
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack{
                             
                             ForEach(cryptoData.coins, id: \.item.id) { coinItem in
                                 
-                                VStack(alignment: .center) {
-                                    HStack{
-                                        Text(coinItem.item.name)
-                                            .font(.title2).bold().padding(.horizontal)
+                                VStack(alignment: .leading) {
+                                    HStack(spacing: 10){
+                                        HStack(){
+                                            Text(coinItem.item.name)
+                                                .font(.title2).bold().fixedSize()
+                                            Spacer()
+                                        }
                                         AsyncImage(url: coinItem.item.small).cornerRadius(10)
-                                    }
+                                    }.frame(width: 300)
                                     if let _pricebtc = coinItem.item.data.priceBtc
                                         
                                     {
@@ -38,7 +41,7 @@ struct HomeView: View {
                                     }
                                     
                                 }
-                                .frame(width: 230)
+                                .frame(width: 300)
                                 .padding()
                                 .background(Color(hex: "#f5c6c6"))
                                 .cornerRadius(10)
@@ -52,9 +55,9 @@ struct HomeView: View {
         }
     }
     
-    struct HomeView_Previews: PreviewProvider {
-        static var previews: some View {
-            HomeView()
-        }
-    }
+ 
+}
+
+#Preview {
+    HomeView()
 }
