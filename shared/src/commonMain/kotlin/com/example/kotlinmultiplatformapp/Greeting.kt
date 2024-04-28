@@ -1,6 +1,7 @@
 package com.example.kmmktor
 
 import ApiResponse
+import CoinResponse
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -19,6 +20,10 @@ class Greeting {
                 append(HttpHeaders.Authorization, "CG-eXyDCd2qaufFfBCbuXsoKYG6")
             }
         }
+        var json = Json { ignoreUnknownKeys = true }
+        val coinResponse = json.decodeFromString<CoinResponse>(response.bodyAsText())
+        println("kotlin log:")
+        println(coinResponse)
         return response.bodyAsText()
     }
     suspend fun getSearch(query: String): ApiResponse{

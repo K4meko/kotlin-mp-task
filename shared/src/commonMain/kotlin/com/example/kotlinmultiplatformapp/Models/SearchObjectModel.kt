@@ -24,19 +24,15 @@ data class Exchange(
     val large: String
 )
 
-@Serializable
-data class Category(
-    val id: Int,
-    val name: String
-)
 
-@Serializable
-data class NFT(
-    val id: String,
-    val name: String,
-    val symbol: String,
-    val thumb: String
-)
+
+//@Serializable
+//data class NFT(
+//    val id: String,
+//    val name: String,
+//    val symbol: String,
+//    val thumb: String
+//)
 
 
 @Serializable
