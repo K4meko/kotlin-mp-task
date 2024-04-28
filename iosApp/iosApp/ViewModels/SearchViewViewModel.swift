@@ -22,6 +22,9 @@ class SearchViewViewModel: ObservableObject {
                     if (self.searchCoinData == ApiResponse(coins: [], exchanges: [], icos: [], categories: [], nfts: [])){
                         self.dataIsEmpty = true
                     }
+                    else{
+                        self.dataIsEmpty = false
+                    }
                     print("swift log")
                     
                 }
