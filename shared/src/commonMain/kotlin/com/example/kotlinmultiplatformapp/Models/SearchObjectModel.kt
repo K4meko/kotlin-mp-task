@@ -25,16 +25,6 @@ data class Exchange(
 )
 
 
-
-//@Serializable
-//data class NFT(
-//    val id: String,
-//    val name: String,
-//    val symbol: String,
-//    val thumb: String
-//)
-
-
 @Serializable
 data class ApiResponse(
     val coins: List<Coin>,

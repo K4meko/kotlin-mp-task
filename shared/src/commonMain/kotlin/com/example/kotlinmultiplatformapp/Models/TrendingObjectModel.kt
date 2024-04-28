@@ -37,8 +37,6 @@ data class NFT(
 //    val floor_price_24h_percentage_change: Double?,
 //    val data: NFTData?
 //)
-
-
 @Serializable
 data class PriceChangePercentage24h(
     val aed: Double,
