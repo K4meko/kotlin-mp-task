@@ -20,27 +20,30 @@ struct HomeView: View {
                             
                             ForEach(cryptoData.coins, id: \.item.id) { coinItem in
                                 
-                                VStack(alignment: .leading) {
-                                    HStack(spacing: 10){
+                             
+                                    HStack(alignment: .center){
+                                        VStack(alignment: .leading) {
                                         HStack(){
                                             Text(coinItem.item.name)
                                                 .font(.title2).bold().fixedSize()
                                             Spacer()
                                         }
-                                        AsyncImage(url: coinItem.item.small).cornerRadius(10)
-                                    }.frame(width: 300)
+                                        
+                                   
                                     if let _pricebtc = coinItem.item.data.priceBtc
                                         
                                     {
                                         if _pricebtc.prefix(6) == "0.0000"{
-                                            Text("0 BTC")
+                                            Text("< 0.0001 BTC")
                                         }
                                         else {
                                             Text( _pricebtc.prefix(6) + " BTC")
                                         }
                                     }
-                                    
-                                }
+                                            
+                                    }
+                                        AsyncImage(url: coinItem.item.small).cornerRadius(10)
+                                }.frame(width: 300)
                                 .frame(width: 300)
                                 .padding()
                                 .background(Color(hex: "#f5c6c6"))

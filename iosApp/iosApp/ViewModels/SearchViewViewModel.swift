@@ -12,7 +12,7 @@ class SearchViewViewModel: ObservableObject {
     @Published var searchCoinData: ApiResponse? = nil
 
     func getSearchJson() {
-        if searchText.count > 3 && searchText.count < 9 {
+        if searchText.count > 2 && searchText.count < 9 {
             Greeting().getSearch(query: searchText){data, error in
                 guard let data = data else{
                     return

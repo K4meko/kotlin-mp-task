@@ -1,42 +1,34 @@
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-@Serializable
-data class Category(
-    val id: Int,
-    val name: String
-)
+
 @Serializable
 data class Content(
     val title: String,
     val description: String
 )
 @Serializable
-data class NFT(
+@SerialName("category")
+data class CategoryTrending(
+    val id: Int,
+    val name: String,
+    val market_cap_1h_change: Double?,
+    val slug: String?,
+    val coins_count: Int?,
+    val data: CategoryData?
+)
+@Serializable
+@SerialName("nft")
+data class NFTTrending(
     val id: String,
     val name: String,
     val symbol: String,
-    val thumb: String
+    val thumb: String,
+    val nft_contract_id: Int?,
+    val native_currency_symbol: String?,
+    val floor_price_in_native_currency: Double?,
+    val floor_price_24h_percentage_change: Double?,
+    val data: NFTData?
 )
-//@Serializable
-//data class Category2(
-//    val id: Int,
-//    val name: String,
-//    val market_cap_1h_change: Double?,
-//    val slug: String?,
-//    val coins_count: Int?,
-//    val data: CategoryData?
-//)
-//@Serializable
-//data class NFT(
-//    val id: String,
-//    val name: String,
-//    val symbol: String,
-//    val thumb: String,
-//    val nft_contract_id: Int?,
-//    val native_currency_symbol: String?,
-//    val floor_price_in_native_currency: Int?,
-//    val floor_price_24h_percentage_change: Double?,
-//    val data: NFTData?
-//)
 @Serializable
 data class PriceChangePercentage24h(
     val aed: Double,
@@ -162,6 +154,6 @@ data class CategoryData(
 @Serializable
 data class CoinResponse(
     val coins: List<CoinItem>,
-    val nfts: List<NFT>,
-    val categories: List<Category>
+    val nfts: List<NFTTrending>,
+    val categories: List<CategoryTrending>
 )
