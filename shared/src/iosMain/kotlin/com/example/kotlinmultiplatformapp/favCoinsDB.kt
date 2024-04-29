@@ -21,4 +21,12 @@ class LocalDatabase {
     fun getFavCoins(): List<FavCoin> {
         return favCoinQueries.selectAll().executeAsList()
     }
+
+    fun insertFavCoin(coin_id: String, coin_name: String) {
+        favCoinQueries.insert(coin_id, coin_name)
+    }
+
+    fun deleteFavCoin(coin_id: String) {
+        favCoinQueries.delete(coin_id)
+    }
 }

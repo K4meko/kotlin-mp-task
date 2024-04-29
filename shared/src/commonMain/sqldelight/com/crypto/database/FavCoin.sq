@@ -14,3 +14,7 @@ VALUES (?, ?);
 insertFullPlayerObject:
 INSERT INTO FavCoin (coin_id, coin_name)
 VALUES ?;
+
+delete:
+DELETE FROM FavCoin
+WHERE coin_id = ?;
