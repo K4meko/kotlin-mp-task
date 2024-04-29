@@ -1,0 +1,16 @@
+CREATE TABLE FavCoin (
+    coin_id TEXT PRIMARY KEY NOT NULL,
+    coin_name TEXT NOT NULL
+);
+
+selectAll:
+SELECT *
+FROM FavCoin;
+
+insert:
+INSERT INTO FavCoin (coin_id, coin_name)
+VALUES (?, ?);
+
+insertFullPlayerObject:
+INSERT INTO FavCoin (coin_id, coin_name)
+VALUES ?;
