@@ -3,13 +3,13 @@ import shared
 
 class HomeViewViewModel: ObservableObject {
 
+  
     @Published var text = "Loading..."
     @Published var trendingCoinData: ResponseData? = nil
     @Published var searchCoinData : ResponseData? = nil
     @Published var btc_price: String? = nil
     init() {
-        //LocalDatabase().insertFavCoin(coin_id: "bitcoin", coin_name: "Bitcoin")
-        //print(LocalDatabase().getFavCoins())
+       
         Greeting().getTrending  { [self] data, error in
             
         if let data = data{
