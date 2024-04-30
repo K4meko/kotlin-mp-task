@@ -27,16 +27,21 @@ struct FavouriteCoinsView: View {
 //                        x: .value("Hours", i.priceChange),
 //                        y: .value("Price change", i.currentPrice)
 //                    ).foregroundStyle(by: .value("id", i.id))
-//                }
-            }
+               //}
+           }
         }.onAppear(perform: {
             viewModel.getFavDetails()
-//            print("appearing")
-//            print(currentUnixTimestamp)
-        })
+            print("appearing")
+            print(currentUnixTimestamp)
+})
     }
 }
 
 #Preview {
     FavouriteCoinsView()
+}
+struct ChartData: Identifiable {
+    var id: String
+    var date: Date
+    var price: Double
 }

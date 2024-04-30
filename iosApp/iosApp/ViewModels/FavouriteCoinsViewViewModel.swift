@@ -10,35 +10,41 @@ class FavouriteCoinsViewViewModel: ObservableObject{
     var timeStamps: [Int64] = []
     var prices: [Double] = []
     var dates: [Date] = []
-    @Published var chartData: [(Double, Date)] = []
-    var chartArray: ChartData? = nil
+    var chartData: [(Double, Date)] = []
+    @Published var chartArray: [[(Double, Date)]]? = nil
 
     init(){
         currentUnixTimestamp = Int(date.timeIntervalSince1970)
         twelveHoursAgo =  Calendar.current.date(byAdding: .hour, value: -12, to: date)?.timeIntervalSince1970 ?? 0
     }
     func getChartData(completion: @escaping () -> Void) {
+
         var requestsCompleted = 0
         let totalRequests = favCoinIds.count
         
         for i in self.favCoinIds {
+            var index = 0
             ApiCalls().getChartData(favId: i) { Data, error in
                 if let data = Data?.prices {
                     for j in data {
-                        var index = 0
+                        
                         var price = j.last as! Double
                         var date = Date(timeIntervalSince1970: TimeInterval(integerLiteral: j.first as! Int64 / 1000))
                         
                         self.chartData.append((price, date))
-                        self.chartArray?.history[index].date = date
-                        index = index + 1
+                    
+                        self.chartArray = self.chartData.chunked(by: 6)
+                       
                     }
+                   
                 }
                 requestsCompleted += 1
                 if requestsCompleted == totalRequests {
                     completion()
                 }
+                
             }
+            index = index + 1
         }
     }
  
@@ -55,8 +61,11 @@ class FavouriteCoinsViewViewModel: ObservableObject{
                     self.FavCoinData = data;
                 }
         }
+       
+
         getChartData{
-            print(self.chartData.first)
+            print(self.chartData)
+            print(self.chartArray)
         }
        
     }
