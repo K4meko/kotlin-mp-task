@@ -8,7 +8,7 @@ struct FavouriteCoinsView: View {
     let twentyFourHoursAgo: TimeInterval
     init(){
         currentUnixTimestamp = Int(date.timeIntervalSince1970)
-        twentyFourHoursAgo =  Calendar.current.date(byAdding: .hour, value: -24, to: date)?.timeIntervalSince1970 ?? 0
+        twentyFourHoursAgo =  Calendar.current.date(byAdding: .hour, value: -12, to: date)?.timeIntervalSince1970 ?? 0
         print(currentUnixTimestamp, twentyFourHoursAgo)
     }
   
@@ -31,25 +31,12 @@ struct FavouriteCoinsView: View {
             }
         }.onAppear(perform: {
             viewModel.getFavDetails()
-            print("appearing")
-            print(currentUnixTimestamp)
-          
+//            print("appearing")
+//            print(currentUnixTimestamp)
         })
     }
 }
 
 #Preview {
     FavouriteCoinsView()
-}
-struct ChartData: Identifiable {
-    let id: String
-    let priceChange: Double
-    let currentPrice: Double
-
-
-    init(priceChange24h: Double, currentPrice: Double, id: String) {
-        self.id = id
-        self.priceChange = priceChange24h
-        self.currentPrice = currentPrice
-    }
 }

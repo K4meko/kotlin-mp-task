@@ -6,7 +6,7 @@ struct ContentView: View {
 
     var body: some View {
         TabView {
-                   HomeView()
+                   FavouriteCoinsView()
                        .tabItem {
                            Label("Home", systemImage: "house.fill")
                        }
@@ -16,7 +16,7 @@ struct ContentView: View {
                            Label("Search", systemImage: "magnifyingglass")
                        }
                    
-                   FavouriteCoinsView()
+                HomeView()
                        .tabItem {
                            Label("Favourites", systemImage: "heart.fill")
                        }

@@ -2,6 +2,7 @@ package com.example.kmmktor
 
 import ApiResponse
 import CoinResponse
+import com.example.kotlinmultiplatformapp.Models.ChartData
 import com.example.kotlinmultiplatformapp.Models.FavCoin
 import io.ktor.client.*
 import io.ktor.client.request.*
@@ -31,7 +32,7 @@ class ApiCalls {
             return emptyList()
         }
         val query = favCoins_ids.joinToString("%2C")
-        print(query)
+       // print(query)
         val response =
         client.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=czk&ids=$query") {
             headers {
@@ -47,8 +48,8 @@ class ApiCalls {
             return emptyList()
         }
         val favCoins = json.decodeFromString<List<FavCoin>>(response.bodyAsText())
-        println("kotlin log:")
-        println(favCoins)
+       // println("kotlin log:")
+        //println(favCoins)
         return favCoins
     }
     suspend fun getSearch(query: String): ApiResponse{
@@ -63,8 +64,17 @@ class ApiCalls {
             return ApiResponse(emptyList(), emptyList(), emptyList(), emptyList(), emptyList())
         }
         val coinsResponse = Json.decodeFromString(ApiResponse.serializer(), response.bodyAsText())
-        //println("kotlin log:")
-       // println(coinsResponse)
       return coinsResponse
+    }
+    suspend fun getChartData(favId: String): ChartData{
+        val response =
+            client.get("https://api.coingecko.com/api/v3/coins/$favId/market_chart?vs_currency=czk&days=5&interval=daily") {
+                headers {
+                    append(HttpHeaders.Authorization, "CG-eXyDCd2qaufFfBCbuXsoKYG6")
+                }
+            }
+        var json = Json { ignoreUnknownKeys = true }
+        val coinsResponse = json.decodeFromString(ChartData.serializer(), response.bodyAsText())
+    return coinsResponse
     }
 }
