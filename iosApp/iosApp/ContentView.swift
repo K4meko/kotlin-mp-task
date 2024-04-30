@@ -16,10 +16,10 @@ struct ContentView: View {
                            Label("Search", systemImage: "magnifyingglass")
                        }
                    
-//                   SettingsView()
-//                       .tabItem {
-//                           Label("Settings", systemImage: "gear")
-//                       }
+                   FavouriteCoinsView()
+                       .tabItem {
+                           Label("Favourites", systemImage: "heart.fill")
+                       }
                }
     }
 }

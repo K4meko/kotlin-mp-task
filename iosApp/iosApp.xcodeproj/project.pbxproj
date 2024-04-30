@@ -14,6 +14,8 @@
 		EC439DAA2BDEE7D300ED2E31 /* SearchViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC439DA72BDEE7D300ED2E31 /* SearchViewViewModel.swift */; };
 		EC79FF472BDE4CFA0010E7CE /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC79FF462BDE4CFA0010E7CE /* SearchView.swift */; };
 		EC79FF4D2BDE95740010E7CE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC79FF4C2BDE95740010E7CE /* Extension.swift */; };
+		ECDC8E492BE0C2FA00B3B800 /* FavouriteCoinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDC8E482BE0C2FA00B3B800 /* FavouriteCoinsView.swift */; };
+		ECDC8E4B2BE0C55B00B3B800 /* FavouriteCoinsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDC8E4A2BE0C55B00B3B800 /* FavouriteCoinsViewViewModel.swift */; };
 		ECE1687B2BDC1CF3005D5E09 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE1687A2BDC1CF3005D5E09 /* HomeView.swift */; };
 		ECE1687E2BDC1D36005D5E09 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE1687D2BDC1D36005D5E09 /* Crypto.swift */; };
 		ECE168802BDC50A4005D5E09 /* HomeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE1687F2BDC50A4005D5E09 /* HomeViewViewModel.swift */; };
@@ -43,6 +45,8 @@
 		EC439DA72BDEE7D300ED2E31 /* SearchViewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewViewModel.swift; sourceTree = "<group>"; };
 		EC79FF462BDE4CFA0010E7CE /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchView.swift; path = ../../../../../Documents/SearchView.swift; sourceTree = "<group>"; };
 		EC79FF4C2BDE95740010E7CE /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extension.swift; path = ../../../../../Documents/Extension.swift; sourceTree = "<group>"; };
+		ECDC8E482BE0C2FA00B3B800 /* FavouriteCoinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCoinsView.swift; sourceTree = "<group>"; };
+		ECDC8E4A2BE0C55B00B3B800 /* FavouriteCoinsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCoinsViewViewModel.swift; sourceTree = "<group>"; };
 		ECE1687A2BDC1CF3005D5E09 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		ECE1687D2BDC1D36005D5E09 /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		ECE1687F2BDC50A4005D5E09 /* HomeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewViewModel.swift; sourceTree = "<group>"; };
@@ -113,6 +117,7 @@
 			children = (
 				ECE1687F2BDC50A4005D5E09 /* HomeViewViewModel.swift */,
 				EC439DA72BDEE7D300ED2E31 /* SearchViewViewModel.swift */,
+				ECDC8E4A2BE0C55B00B3B800 /* FavouriteCoinsViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -130,6 +135,7 @@
 			children = (
 				ECE1687A2BDC1CF3005D5E09 /* HomeView.swift */,
 				EC79FF462BDE4CFA0010E7CE /* SearchView.swift */,
+				ECDC8E482BE0C2FA00B3B800 /* FavouriteCoinsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC79FF4D2BDE95740010E7CE /* Extension.swift in Sources */,
+				ECDC8E4B2BE0C55B00B3B800 /* FavouriteCoinsViewViewModel.swift in Sources */,
 				ECE168802BDC50A4005D5E09 /* HomeViewViewModel.swift in Sources */,
 				ECE1687E2BDC1D36005D5E09 /* Crypto.swift in Sources */,
 				ECE168822BDC530B005D5E09 /* Coins.swift in Sources */,
@@ -244,6 +251,7 @@
 				EC439DAA2BDEE7D300ED2E31 /* SearchViewViewModel.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				ECDC8E492BE0C2FA00B3B800 /* FavouriteCoinsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

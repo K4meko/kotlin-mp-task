@@ -14,7 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.kmmktor.Greeting
+import com.example.kmmktor.ApiCalls
 import com.example.kotlinmultiplatformapp.android.MyApplicationTheme
 import kotlinx.coroutines.launch
 
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     LaunchedEffect(true) {
                         scope.launch {
                             text = try {
-                                Greeting().greeting()
+                                ApiCalls().greeting()
                             } catch (e: Exception) {
                                 e.localizedMessage ?: "error"
                             }

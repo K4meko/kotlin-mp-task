@@ -10,7 +10,7 @@ class HomeViewViewModel: ObservableObject {
     @Published var btc_price: String? = nil
     init() {
        
-        Greeting().getTrending  { [self] data, error in
+        ApiCalls().getTrending  { [self] data, error in
             
         if let data = data{
             Task.detached { @MainActor in

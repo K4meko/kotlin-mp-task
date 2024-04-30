@@ -35,13 +35,10 @@ class SearchViewViewModel: ObservableObject {
     }
 
     func getSearchJson() {
-        
-           
-            
         if self.searchText.count > 2 && self.searchText.count < 9 {
             debounce_timer?.invalidate()
             debounce_timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [self] _ in
-            Greeting().getSearch(query: searchText){data, error in
+                ApiCalls().getSearch(query: searchText){data, error in
                 guard let data = data else{
                     return
                 }
@@ -61,22 +58,6 @@ class SearchViewViewModel: ObservableObject {
             else{
                 self.searchCoinData = nil
             }
-        
-    }
-    func parseJson(json: String) -> ResponseData{
-        if let jsonData = json.data(using: .utf8) {
-            let decoder = JSONDecoder()
-            do {
-                let responseData = try decoder.decode(ResponseData.self, from: jsonData)
-                return responseData
-            }
-            catch DecodingError.keyNotFound(let key, let context) {
-                print("Failed to decode JSON due to missing key '\(key.stringValue)' in the JSON data - \(context.debugDescription)")
-            } catch {
-                print("Failed to decode JSON: \(error)")
-            }
-            }
-        return ResponseData(coins: [], nfts: [], categories: [])
     }
 }
 
