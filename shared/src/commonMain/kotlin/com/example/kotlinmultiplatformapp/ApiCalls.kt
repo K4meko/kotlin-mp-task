@@ -67,12 +67,17 @@ class ApiCalls {
       return coinsResponse
     }
     suspend fun getChartData(favId: String): ChartData{
+
         val response =
             client.get("https://api.coingecko.com/api/v3/coins/$favId/market_chart?vs_currency=czk&days=5&interval=daily") {
                 headers {
                     append(HttpHeaders.Authorization, "CG-eXyDCd2qaufFfBCbuXsoKYG6")
                 }
             }
+        if (!response.status.isSuccess()) {
+            println("API request failed with status: ${response.status}")
+            return ChartData(emptyList())
+        }
         var json = Json { ignoreUnknownKeys = true }
         val coinsResponse = json.decodeFromString(ChartData.serializer(), response.bodyAsText())
     return coinsResponse

@@ -10,41 +10,104 @@ class FavouriteCoinsViewViewModel: ObservableObject{
     var timeStamps: [Int64] = []
     var prices: [Double] = []
     var dates: [Date] = []
-    var chartData: [(Double, Date)] = []
-    @Published var chartArray: [[(Double, Date)]]? = nil
+    var chartData: [(Double, Date, String)] = []
+    @Published var chartArray: [[(Double, Date, String)]] = []
+    @Published var uiChartData: [ChartData] = []
+    let splitLength = 6
 
     init(){
         currentUnixTimestamp = Int(date.timeIntervalSince1970)
         twelveHoursAgo =  Calendar.current.date(byAdding: .hour, value: -12, to: date)?.timeIntervalSince1970 ?? 0
     }
+    
+     func isIndexValid(index: Int)-> Bool{
+         for i in 0...self.favCoinIds.count{
+             print(i)
+             if favCoinIds.count == 1{
+                 if(index > 5 && index < 12 ){
+                     return true
+                 }
+                 else{
+                     return false
+                 }
+             }
+             else{//12 - 17
+                 if i.isMultiple(of: 2){
+                     if(index > 5 + (12 * i) && index < 12 + (12 * i)){
+                         return true
+                     }
+                 }
+                 if(index > 5 + (12 * i) && index < 12 + (12 * i)){
+                     return true
+                 }
+                 else{
+                     return false
+                 }
+             }
+         }
+       return false
+     }
     func getChartData(completion: @escaping () -> Void) {
+        self.chartArray = []
+        self.chartData = []
 
         var requestsCompleted = 0
         let totalRequests = favCoinIds.count
-        
+        var index = 0
         for i in self.favCoinIds {
-            var index = 0
+           
             ApiCalls().getChartData(favId: i) { Data, error in
                 if let data = Data?.prices {
                     for j in data {
                         
+                        print("j: \(j) i:\(i) index: \(index)")
                         var price = j.last as! Double
                         var date = Date(timeIntervalSince1970: TimeInterval(integerLiteral: j.first as! Int64 / 1000))
-                        
-                        self.chartData.append((price, date))
-                    
-                        self.chartArray = self.chartData.chunked(by: 6)
+                        self.chartData.append((price, date, i))
+                       // self.chartArray?[index].append((price, date, i))
                        
                     }
-                   
+                    requestsCompleted += 1
+                    
                 }
-                requestsCompleted += 1
+               
+               
+                self.chartArray.append([])
+                var dataToAppend = self.chartData.filter { (Double, Date, id) in
+                    if id == i{
+                        return true
+                    }
+                    else{
+                        return false
+                    }
+                }
+
+                self.chartArray[index].append(contentsOf: dataToAppend)
+
+                print("chart array after append")
+                print(self.chartArray)
                 if requestsCompleted == totalRequests {
                     completion()
                 }
-                
+                index+=1
             }
-            index = index + 1
+            
+        }
+/*
+ typ chartarrays
+ [
+    {
+        coin_id: "bitcoin",
+        prices: [{date, price}]
+    }
+ ]
+ Renderovat jednotlive polozky chartarrays
+ */
+    
+//        var chartArrays
+        
+        for coin in self.favCoinIds {
+            
         }
     }
  
@@ -62,15 +125,27 @@ class FavouriteCoinsViewViewModel: ObservableObject{
                 }
         }
        
-
         getChartData{
-            print(self.chartData)
+            self.uiChartData = []
+            var index = 0
+            for i in self.favCoinIds{
+              //  if index <= 1{
+                    for item in self.chartArray[index]{
+                        self.uiChartData.append(ChartData(id: i, date: item.1, price: item.0))
+                        
+                        
+                    }
+              //  }
+                index += 1
+            }
+           
             print(self.chartArray)
+            print("---")
+            print(self.uiChartData)
+           //print(self.chartArray!)
+            
         }
        
     }
    
 }
-extension FavCoin_ : Identifiable {
-}
-

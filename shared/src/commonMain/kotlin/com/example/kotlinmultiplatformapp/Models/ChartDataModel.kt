@@ -3,7 +3,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ChartData(
-    val prices: List<List<Double?>>?
+    val prices: List<List<Double>>?
 )
 //@Serializable
 //data class Prices(
