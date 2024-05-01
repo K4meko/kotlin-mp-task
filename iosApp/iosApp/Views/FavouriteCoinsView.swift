@@ -6,71 +6,66 @@ struct FavouriteCoinsView: View {
     let date = Date()
     let currentUnixTimestamp: Int
     let twentyFourHoursAgo: TimeInterval
-    init(){
+    init() {
         currentUnixTimestamp = Int(date.timeIntervalSince1970)
-        twentyFourHoursAgo =  Calendar.current.date(byAdding: .hour, value: -12, to: date)?.timeIntervalSince1970 ?? 0
+        twentyFourHoursAgo = Calendar.current.date(byAdding: .hour, value: -12, to: date)?.timeIntervalSince1970 ?? 0
         print(currentUnixTimestamp, twentyFourHoursAgo)
     }
+
     var body: some View {
-        VStack(){
-            ScrollView{
+        VStack {
+            ScrollView {
                 if !viewModel.uiChartData.isEmpty {
-                    ForEach(viewModel.FavCoinData, id: \.self){ i in
-                        VStack(){
-                            
+                    ForEach(viewModel.FavCoinData, id: \.self) { i in
+                        VStack {
                             Text(i.name).font(.title).padding(.bottom, 20).fontWeight(.semibold)
-                            
+
                             Text("Current price: \(i.current_price) czk")
-                            
-                            LineChart(data: viewModel.uiChartData.filter{$0.id == i.id}, title: i.name)
+
+                            LineChart(data: viewModel.uiChartData.filter { $0.id == i.id }, title: i.name)
                             Divider().frame(height: 30)
                         }
                     }
-                    
+
                 } else {
                     ProgressView("Loading...")
-                    
                 }
-                if viewModel.chartArray.isEmpty{
+                if viewModel.chartArray.isEmpty {
                     Text("Too many calls.")
                 }
             }
-    }.onAppear(perform: {
-        
-       viewModel.getFavDetails()
-        print("appearing")
-       // print(viewModel.uiChartData)
-    }
-           )
-
-    }
+        }.onAppear(perform: {
+            viewModel.getFavDetails()
+            print("appearing")
+            // print(viewModel.uiChartData)
         }
-    
-    
-    #Preview {
-        FavouriteCoinsView()
+        )
     }
-    struct ChartData: Identifiable {
-        var id: String
-        var date: Date
-        var price: Double
-    }
+}
 
+#Preview {
+    FavouriteCoinsView()
+}
 
+struct ChartData: Identifiable {
+    var id: String
+    var date: Date
+    var price: Double
+}
 
 struct LineChart: View {
     var data: [ChartData]
     var title: String
-   
+
     var body: some View {
         VStack {
-            Chart(data){
+            Chart(data) {
                 LineMark(
                     x: .value("Month", $0.date),
                     y: .value("Price", $0.price)
                 )
-               
-            }.frame(height:150).frame(width:300)
+
+            }.frame(height: 150).frame(width: 300)
         }
     }
 }

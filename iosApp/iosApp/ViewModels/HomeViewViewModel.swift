@@ -2,46 +2,41 @@ import Foundation
 import shared
 
 class HomeViewViewModel: ObservableObject {
-
-  
     @Published var text = "Loading..."
     @Published var trendingCoinData: ResponseData? = nil
-    @Published var searchCoinData : ResponseData? = nil
+    @Published var searchCoinData: ResponseData? = nil
     @Published var btc_price: String? = nil
     init() {
         print("home view")
-       
-        ApiCalls().getTrending  { [self] data, error in
-          
-            if let data = data{
-                if data.isEmpty{
+
+        ApiCalls().getTrending { [self] data, _ in
+
+            if let data = data {
+                if data.isEmpty {
                     self.trendingCoinData = nil
-                }
-                else{
+                } else {
                     Task.detached { @MainActor in
                         self.trendingCoinData = self.parseJson(json: data)
-                    }}}
-            else{
+                    }
+                }
+            } else {
                 self.trendingCoinData = nil
             }
         }
-        
     }
- 
 
-    func parseJson(json: String) -> ResponseData{
+    func parseJson(json: String) -> ResponseData {
         if let jsonData = json.data(using: .utf8) {
             let decoder = JSONDecoder()
             do {
                 let responseData = try decoder.decode(ResponseData.self, from: jsonData)
                 return responseData
-            }
-            catch DecodingError.keyNotFound(let key, let context) {
+            } catch let DecodingError.keyNotFound(key, context) {
                 print("Failed to decode JSON due to missing key '\(key.stringValue)' in the JSON data - \(context.debugDescription)")
             } catch {
                 print("Failed to decode JSON: \(error)")
             }
-            }
+        }
         return ResponseData(coins: [], nfts: [], categories: [])
     }
 }

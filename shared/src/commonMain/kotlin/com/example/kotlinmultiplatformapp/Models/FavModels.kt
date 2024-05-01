@@ -28,6 +28,6 @@ data class FavCoin(
     val atl: Double,
     val atl_change_percentage: Double,
     val atl_date: String,
-   // val roi: String?, // or specific type if ROI is known
     val last_updated: String
+    // val roi: String?, // or specific type if ROI is known
 )

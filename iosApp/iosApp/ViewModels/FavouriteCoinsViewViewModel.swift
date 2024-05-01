@@ -19,7 +19,12 @@ class FavouriteCoinsViewViewModel: ObservableObject {
         currentUnixTimestamp = Int(date.timeIntervalSince1970)
         twelveHoursAgo = Calendar.current.date(byAdding: .hour, value: -12, to: date)?.timeIntervalSince1970 ?? 0
     }
-
+    func saveLocally(value: Any, key: String){
+        UserDefaults.standard.set(value, forKey: key)
+    }
+//    func loadLocally(key: String){
+//
+//    }
     func getChartData(completion: @escaping () -> Void) {
         chartArray = []
         chartData = []
@@ -78,9 +83,8 @@ class FavouriteCoinsViewViewModel: ObservableObject {
             }
             if let data = data {
                 self.FavCoinData = data
-                
-                if !self.FavCoinData.isEmpty
-                {
+
+                if !self.FavCoinData.isEmpty {
                     DispatchQueue.main.async {
                         self.getChartData {
                             self.uiChartData = []
@@ -90,18 +94,25 @@ class FavouriteCoinsViewViewModel: ObservableObject {
                                 for item in self.chartArray[index] {
                                     print(item)
                                     self.uiChartData.append(ChartData(id: item.2, date: item.1, price: item.0))
+                                   // self.saveLocally(value: item.0, key: "chartData")
                                 }
                                 index += 1
                             }
-                            
+
                             //     print(self.chartArray)
                             print("---")
                             print(self.uiChartData)
-                            // print(self.chartArray!)
+                            
                         }
+                    }
+                }else{
+                    print("app is offline")
+                    if let localData = UserDefaults.standard.array(forKey: "chartData"){
+                        print("local")
+                       print(localData)
                     }}
+                
             }
         }
-        
     }
 }
