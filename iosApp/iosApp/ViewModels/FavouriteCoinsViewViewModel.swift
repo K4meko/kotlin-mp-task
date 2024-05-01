@@ -47,71 +47,66 @@ class FavouriteCoinsViewViewModel: ObservableObject{
          }
        return false
      }
-    func getChartData(completion: @escaping () -> Void) {
+ func getChartData(completion: @escaping () -> Void) {
         self.chartArray = []
         self.chartData = []
 
         var requestsCompleted = 0
         let totalRequests = favCoinIds.count
         var index = 0
-        for i in self.favCoinIds {
-           
-            ApiCalls().getChartData(favId: i) { Data, error in
-                if let data = Data?.prices {
-                    for j in data {
+//        Task.detached { @MainActor in
+            for i in self.favCoinIds {
+                
+                    ApiCalls().getChartData(favId: i) { Data, error in
+                        if let data = Data?.prices {
+                            for j in data {
+                                
+                                print("j: \(j) i:\(i) index: \(index)")
+                                let price = j.last as! Double
+                                let date = Date(timeIntervalSince1970: TimeInterval(integerLiteral: j.first as! Int64 / 1000))
+                                
+                                
+                                    self.chartData.append((price, date, i))
+                                
+                                
+                                // self.chartArray?[index].append((price, date, i))
+                                
+                            }
+                            requestsCompleted += 1
+                            
+                        }
                         
-                        print("j: \(j) i:\(i) index: \(index)")
-                        var price = j.last as! Double
-                        var date = Date(timeIntervalSince1970: TimeInterval(integerLiteral: j.first as! Int64 / 1000))
-                        self.chartData.append((price, date, i))
-                       // self.chartArray?[index].append((price, date, i))
-                       
+                      
+                            
+                            self.chartArray.append([])
+                            
+                            let dataToAppend = self.chartData.filter { (Double, Date, id) in
+                                if id == i{
+                                    return true
+                                }
+                                else{
+                                    return false
+                                }
+                            }
+                            
+                            
+                            self.chartArray[index].append(contentsOf: dataToAppend)
+                            
+                            print("chart array after append")
+                            print(self.chartArray)
+                            if requestsCompleted == totalRequests {
+                                completion()
+                            }
+                            index+=1
+                        
                     }
-                    requestsCompleted += 1
-                    
-                }
-               
-               
-                self.chartArray.append([])
-                var dataToAppend = self.chartData.filter { (Double, Date, id) in
-                    if id == i{
-                        return true
-                    }
-                    else{
-                        return false
-                    }
-                }
-
-                self.chartArray[index].append(contentsOf: dataToAppend)
-
-                print("chart array after append")
-                print(self.chartArray)
-                if requestsCompleted == totalRequests {
-                    completion()
-                }
-                index+=1
-            }
-            
-        }
-/*
- typ chartarrays
- [
-    {
-        coin_id: "bitcoin",
-        prices: [{date, price}]
-    }
- ]
- Renderovat jednotlive polozky chartarrays
- */
+                
+                
     
-//        var chartArrays
-        
-        for coin in self.favCoinIds {
-            
         }
     }
  
-    func getFavDetails(){
+   func getFavDetails(){
         for i in LocalDatabase().getFavCoins(){
             favCoinIds.append(i.coin_id)
         }
