@@ -1,5 +1,6 @@
 package com.example.kotlinmultiplatformapp
 
+import com.example.kotlinmultiplatformapp.Models.ChartData
 import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {
@@ -7,3 +8,4 @@ class IOSPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
+

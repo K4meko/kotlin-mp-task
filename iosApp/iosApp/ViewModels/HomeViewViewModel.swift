@@ -9,13 +9,22 @@ class HomeViewViewModel: ObservableObject {
     @Published var searchCoinData : ResponseData? = nil
     @Published var btc_price: String? = nil
     init() {
+        print("home view")
        
         ApiCalls().getTrending  { [self] data, error in
-            
-        if let data = data{
-            Task.detached { @MainActor in
-                self.trendingCoinData = self.parseJson(json: data)
-            }}}
+          
+            if let data = data{
+                if data.isEmpty{
+                    self.trendingCoinData = nil
+                }
+                else{
+                    Task.detached { @MainActor in
+                        self.trendingCoinData = self.parseJson(json: data)
+                    }}}
+            else{
+                self.trendingCoinData = nil
+            }
+        }
         
     }
  

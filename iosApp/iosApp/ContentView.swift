@@ -8,7 +8,7 @@ struct ContentView: View {
         TabView {
                    FavouriteCoinsView()
                        .tabItem {
-                           Label("Home", systemImage: "house.fill")
+                           Label("Favourites", systemImage: "heart.fill")
                        }
                    
                    SearchView()
@@ -16,11 +16,11 @@ struct ContentView: View {
                            Label("Search", systemImage: "magnifyingglass")
                        }
                    
-                HomeView()
-                       .tabItem {
-                           Label("Favourites", systemImage: "heart.fill")
-                       }
-               }
+            HomeView()
+                   .tabItem {
+                       Label("Home", systemImage: "house.fill")
+                   }
+            }
     }
 }
 struct ContentView_Previews: PreviewProvider {

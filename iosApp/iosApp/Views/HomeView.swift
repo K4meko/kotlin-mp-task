@@ -2,8 +2,12 @@ import SwiftUI
 import Foundation
 
 struct HomeView: View {
+    
     @ObservedObject var viewModel = HomeViewViewModel()
-    var body: some View {
+        var body: some View {
+        
+        if let cryptoData = viewModel.trendingCoinData{
+            
         VStack(alignment: .leading) {
             Spacer().frame(height: 40)
             Text("Trending Cryptos 🔥")
@@ -12,7 +16,7 @@ struct HomeView: View {
             
                 .padding(10)
             
-            if let cryptoData = viewModel.trendingCoinData{
+        
                 VStack(alignment: .leading) {
                     
                     ScrollView(.vertical, showsIndicators: false) {
@@ -54,11 +58,14 @@ struct HomeView: View {
                         }}}.frame(height:640).padding()
                 
             }
+
             
+        } else{
+            Text("No connection")
         }
-    }
-    
- 
+   }
+   
+
 }
 
 #Preview {

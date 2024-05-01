@@ -14,26 +14,32 @@ struct FavouriteCoinsView: View {
     var body: some View {
         VStack(){
             ScrollView{
-                ForEach(viewModel.FavCoinData, id: \.self){ i in
-                    VStack(){
-                        if !viewModel.uiChartData.isEmpty {
+                if !viewModel.uiChartData.isEmpty {
+                    ForEach(viewModel.FavCoinData, id: \.self){ i in
+                        VStack(){
+                            
                             Text(i.name).font(.title).padding(.bottom, 20).fontWeight(.semibold)
                             
-                            Text("Current price \(i.current_price)")
+                            Text("Current price: \(i.current_price) czk")
                             
                             LineChart(data: viewModel.uiChartData.filter{$0.id == i.id}, title: i.name)
                             Divider().frame(height: 30)
-                        } else {
-                            ProgressView("Loading...")
-                            
                         }
                     }
                     
-                }}
+                } else {
+                    ProgressView("Loading...")
+                    
+                }
+                if viewModel.chartArray.isEmpty{
+                    Text("Too many calls.")
+                }
+            }
     }.onAppear(perform: {
-        viewModel.getFavDetails()
+        
+       viewModel.getFavDetails()
         print("appearing")
-        print(viewModel.uiChartData)
+       // print(viewModel.uiChartData)
     }
            )
 

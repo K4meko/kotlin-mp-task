@@ -23,7 +23,12 @@ class LocalDatabase {
     }
 
     fun insertFavCoin(coin_id: String, coin_name: String) {
-        favCoinQueries.insert(coin_id, coin_name)
+        try {
+            favCoinQueries.insert(coin_id, coin_name)
+        }
+        catch (e: Exception){
+            print(e)
+        }
     }
 
     fun deleteFavCoin(coin_id: String) {
