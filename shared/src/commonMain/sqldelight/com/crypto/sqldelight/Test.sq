@@ -1,0 +1,23 @@
+CREATE TABLE Test (
+    coin_id TEXT PRIMARY KEY NOT NULL,
+    coin_name TEXT NOT NULL,
+    image TEXT,
+    current_price REAL NOT NULL,
+     high_24h REAL,
+    low_24h REAL
+);
+
+selectAll:
+SELECT *
+FROM FavCoin;
+
+insert:
+INSERT INTO Test (coin_id, coin_name, image, current_price, high_24h, low_24h)
+VALUES (?, ?, ?, ?, ?, ?);
+
+deleteAll:
+DELETE FROM Test;
+
+delete:
+DELETE FROM Test
+WHERE coin_id = ?;

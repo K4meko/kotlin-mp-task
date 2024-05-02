@@ -8,11 +8,8 @@ class FavouriteCoinsViewViewModel: ObservableObject {
     @Published var FavCoinData: [FavCoin_] = []
     @Published var favCoinIds: [String] = []
     @Published var apiIsffline = false
-    @Published var nofavItems = false;
-    var timeStamps: [Int64] = []
-    var prices: [Double] = []
-    var dates: [Date] = []
-    var chartData: [(Double, Date, String)] = []
+    @Published var nofavItems = false
+    @Published var chartData: [(Double, Date, String)] = []
     @Published var chartArray: [[(Double, Date, String)]] = []
     @Published var uiChartData: [ChartData] = []
     let splitLength = 6
@@ -21,9 +18,40 @@ class FavouriteCoinsViewViewModel: ObservableObject {
         currentUnixTimestamp = Int(date.timeIntervalSince1970)
         twelveHoursAgo = Calendar.current.date(byAdding: .hour, value: -12, to: date)?.timeIntervalSince1970 ?? 0
     }
-    func saveLocally(value: Any, key: String){
-        UserDefaults.standard.set(value, forKey: key)
+
+    func loadData(key: String) {
+        let defaults = UserDefaults.standard
+        if let array = defaults.array(forKey: key) {
+            print(array[0])
+        } else {
+            print("no array")
+        }
+        if let obj = defaults.object(forKey: key) {
+            print(obj)
+        } else {
+            print("no obn")
+        }
+        let string = defaults.string(forKey: key)
+
+        print(string as Any)
+
+        if let data = defaults.data(forKey: key) {
+            print(key)
+            print(data.self)
+        } else {
+            print("no data")
+        }
     }
+
+    func saveLocally(value: Any, key: String) {
+        print("saving")
+        print(value)
+        print(key)
+        let defaults = UserDefaults.standard
+        defaults.setValue("this is a string", forKey: key)
+        print(defaults)
+    }
+
     func getChartData(completion: @escaping () -> Void) {
         chartArray = []
         chartData = []
@@ -48,12 +76,6 @@ class FavouriteCoinsViewViewModel: ObservableObject {
                 self.chartArray.append([])
 
                 let dataToAppend = self.chartData.filter { _, _, id in
-//                                if id == i{
-//                                    return true
-//                                }
-//                                else{
-//                                    return false
-//                                }
                     id == i
                 }
 
@@ -70,52 +92,106 @@ class FavouriteCoinsViewViewModel: ObservableObject {
     }
 
     func getFavDetails() {
+        favCoinIds = []
         for i in LocalDatabase().getFavCoins() {
             favCoinIds.append(i.coin_id)
         }
-        if favCoinIds.isEmpty{
+        if favCoinIds.isEmpty {
             nofavItems = true
         }
-        //check if user has any fav items
-        if !favCoinIds.isEmpty{
-            ApiCalls().getFav(favCoins_ids: favCoinIds) { data, error in
-                if let error = error {
-                    print(error)
-                    return
-                }
-                if let data = data {
-                    self.FavCoinData = data
-                    
-                    if !self.FavCoinData.isEmpty {
-                        DispatchQueue.main.async {
-                            self.getChartData {
-                                self.uiChartData = []
-                                var index = 0
-                                for i in self.favCoinIds {
-                                    //  if index <= 1{
-                                    for item in self.chartArray[index] {
-                                        print(item)
-                                        self.uiChartData.append(ChartData(id: item.2, date: item.1, price: item.0))
-                                        // self.saveLocally(value: item.0, key: "chartData")
-                                    }
-                                    index += 1
+        ApiCalls().getFav(favCoins_ids: favCoinIds) { data, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            if let data = data {
+                self.FavCoinData = data
+               
+                if !self.FavCoinData.isEmpty {
+                    LocalDatabase().testDelete()
+                    for i in self.FavCoinData{
+                        LocalDatabase().testInsert(id: i.id, name: i.name, image: i.image, current_price: i.current_price, high_24h: i.high_24h as! Double, low_24h: i.low_24h)
+
+                    }
+                    DispatchQueue.main.async {
+                        self.getChartData {
+                            self.uiChartData = []
+                            var index = 0
+                            for i in self.favCoinIds {
+                                for item in self.chartArray[index] {
+                                    print(item)
+                                    self.uiChartData.append(ChartData(id: item.2, date: item.1, price: item.0))
                                 }
-                                
-                                //     print(self.chartArray)
-                                print("---")
-                                print(self.uiChartData)
-                                
+                               
+                                index += 1
                             }
+
+                            print("---")
+                            print(self.uiChartData)
                         }
-                    }else{
-                        self.apiIsffline = true;
-                        print("app is offline")
-                        if let localData = UserDefaults.standard.array(forKey: "chartData"){
-                            print("local")
-                            print(localData)
-                        }}
-                    
+                    }
+                } else {
+                    self.apiIsffline = true
+                    print("app is offline")
+                    if let localData = UserDefaults.standard.array(forKey: "chartData") {
+                        print("local")
+                        print(localData)
+                    }
                 }
-            }}
+            }
+        }
     }
+
+    //    func getFavDetails() {
+    //        favCoinIds = []
+    //        for i in LocalDatabase().getFavCoins() {
+    //            favCoinIds.append(i.coin_id)
+    //
+    //        }
+    //        print(self.favCoinIds)
+    //        self.favCoinIds = Array(Set(favCoinIds))
+    //        print(self.favCoinIds)
+    //        if favCoinIds.isEmpty {
+    //            nofavItems = true
+    //        }
+    //        // check if user has any fav items
+    //        if !favCoinIds.isEmpty {
+    //            ApiCalls().getFav(favCoins_ids: favCoinIds) { data, error in
+    //                if let error = error {
+    //                    print(error)
+    //                    return
+    //                }
+    //                if let data = data {
+    //                    self.FavCoinData = []
+    //                    self.FavCoinData = data
+    //                    if !self.FavCoinData.isEmpty {
+    //                        //for i in self.FavCoinData{
+    ////                            LocalDatabase().testInsert(id: i.id, name: i.name, image: i.image, current_price: i.current_price, high_24h: i.high_24h as! Double, low_24h: i.low_24h)
+    //                       // }
+    //                        DispatchQueue.main.async {
+    //                            self.getChartData {
+    //                                self.uiChartData = []
+    //                                var index = 0
+    //                                for i in self.favCoinIds {
+    //                                    for item in self.chartArray[index] {
+    //                                        print(item)
+    //                                        self.uiChartData.append(ChartData(id: item.2, date: item.1, price: item.0))
+    //
+    //                                    }
+    //                                    index += 1
+    //                                }
+    //                                print("---")
+    //                                print(self.uiChartData)
+    //                            }
+    //                        }
+    //                    } else {
+    //                        self.apiIsffline = true
+    //
+    //                        print("app is offline")
+    //
+    //                    }
+    //                }
+    //            }
+    //        }
+    // }
 }
