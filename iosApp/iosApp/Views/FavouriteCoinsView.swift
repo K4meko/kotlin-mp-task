@@ -13,38 +13,42 @@ struct FavouriteCoinsView: View {
     }
 
     var body: some View {
-        if !viewModel.apiIsffline{
-            VStack {
-                ScrollView {
-                    if !viewModel.uiChartData.isEmpty {
-                        ForEach(viewModel.FavCoinData, id: \.self) { i in
-                            VStack {
-                                Text(i.name).font(.title).padding(.bottom, 20).fontWeight(.semibold)
-                                
-                                Text("Current price: \(i.current_price) czk")
-                                
-                                LineChart(data: viewModel.uiChartData.filter { $0.id == i.id }, title: i.name)
-                                Divider().frame(height: 30)
+        if !viewModel.nofavItems{
+            if !viewModel.apiIsffline{
+                VStack {
+                    ScrollView {
+                        if !viewModel.uiChartData.isEmpty {
+                            ForEach(viewModel.FavCoinData, id: \.self) { i in
+                                VStack {
+                                    Text(i.name).font(.title).padding(.bottom, 20).fontWeight(.semibold)
+                                    
+                                    Text("Current price: \(i.current_price) czk")
+                                    
+                                    LineChart(data: viewModel.uiChartData.filter { $0.id == i.id }, title: i.name)
+                                    Divider().frame(height: 30)
+                                }
                             }
+                            
+                        } else {
+                            ProgressView("Loading...")
                         }
-                        
-                    } else {
-                        ProgressView("Loading...")
+                        if viewModel.chartArray.isEmpty {
+                            Text("Too many calls.")
+                        }
                     }
-                    if viewModel.chartArray.isEmpty {
-                        Text("Too many calls.")
-                    }
+                }.onAppear(perform: {
+                    viewModel.getFavDetails()
+                    print("appearing")
+                    // print(viewModel.uiChartData)
                 }
-            }.onAppear(perform: {
-                viewModel.getFavDetails()
-                print("appearing")
-                // print(viewModel.uiChartData)
+                )}
+            else{
+                VStack{
+                    Text("API appears to be offline, try again to view charts").bold()
+                }
             }
-            )}
-        else{
-            VStack{
-                Text("API appears to be offline, try again to view charts")
-            }
+        }else{
+            Text("Add some items to favourite first")
         }
     }
 }
