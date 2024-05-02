@@ -6,6 +6,9 @@ class HomeViewViewModel: ObservableObject {
     @Published var trendingCoinData: ResponseData? = nil
     @Published var searchCoinData: ResponseData? = nil
     @Published var btc_price: String? = nil
+    @Published var favCoinsIds: [String] = []
+    @Published var favCoins: [FavCoin] = LocalDatabase().getFavCoins()
+
     init() {
         print("home view")
 
@@ -13,9 +16,12 @@ class HomeViewViewModel: ObservableObject {
 
             if let data = data {
                 if data.isEmpty {
+                 
+                    self.getFavIds()
                     self.trendingCoinData = nil
                 } else {
                     Task.detached { @MainActor in
+                        self.getFavIds()
                         self.trendingCoinData = self.parseJson(json: data)
                     }
                 }
@@ -23,6 +29,15 @@ class HomeViewViewModel: ObservableObject {
                 self.trendingCoinData = nil
             }
         }
+    }
+    func isFav(id: String) -> Bool{
+        for i in favCoins {
+            if i.coin_id == id{
+                print(id)
+                return true
+            }
+        }
+        return false
     }
 
     func parseJson(json: String) -> ResponseData {
@@ -39,7 +54,22 @@ class HomeViewViewModel: ObservableObject {
         }
         return ResponseData(coins: [], nfts: [], categories: [])
     }
+    func addFav(coinId: String, coinName: String){
+        LocalDatabase().insertFavCoin(coin_id: coinId, coin_name: coinName)
+        LocalDatabase().getFavCoins()
+        getFavIds()
+    }
+
+    func removeFav(coinId: String) {
+        LocalDatabase().deleteFavCoin(coin_id: coinId)
+        LocalDatabase().getFavCoins()
+        getFavIds()
+    }
+    func getFavIds(){
+        self.favCoins = LocalDatabase().getFavCoins()
+       }
 }
+
 
 let jsonString = """
 {

@@ -17,10 +17,29 @@ struct HomeView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack {
                             ForEach(cryptoData.coins, id: \.item.id) { coinItem in
-
+                                
                                 HStack(alignment: .center) {
+                                   
                                     VStack(alignment: .leading) {
                                         HStack {
+                                            if viewModel.isFav(id: coinItem.item.id){
+                                                Button {
+                                                    print("removing fav coin")
+
+                                                    viewModel.removeFav(coinId: coinItem.item.id)
+                                                } label: {
+                                                   Image(systemName: "heart.fill").padding(.leading)
+                                                }.foregroundStyle(.black)
+
+                                            }
+                                            else{
+                                                Button {
+                                                    print("adding fav coin")
+                                                    viewModel.addFav(coinId: coinItem.item.id, coinName: coinItem.item.name)
+                                                } label: {
+                                                   Image(systemName: "heart").padding(.leading)
+                                                }.foregroundStyle(.black)
+                                            }
                                             Text(coinItem.item.name)
                                                 .font(.title2).bold().fixedSize()
                                             Spacer()
@@ -35,6 +54,7 @@ struct HomeView: View {
                                         }
                                     }
                                     AsyncImage(url: coinItem.item.small).cornerRadius(10)
+                                    
                                 }.frame(width: 300)
                                     .frame(width: 300)
                                     .padding()

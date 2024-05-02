@@ -23,6 +23,18 @@ class LocalDatabase {
     fun getFavCoinsData(): List<FavCoinData>{
         return favCoinDataQueries.selectAll().executeAsList()
     }
+    fun saveFavCoinsData(id: String, name: String, symbol: String, image: String, currentPrice: Double,
+                         fullyDilutedValuation: Double,
+                         total_volume: Double,
+                         high_24h: Double,
+                         low_24h: Double,
+                         price_change_24h: Double,
+                         price_change_percentage_24h: Double,
+                         total_supply: Double,
+                         max_supply: Double,
+                         last_updated: String){
+        favCoinDataQueries.insert(id, name, symbol, image, currentPrice, fullyDilutedValuation, total_volume, high_24h, low_24h, price_change_24h, price_change_percentage_24h, total_supply, max_supply, last_updated)
+    }
     fun getFavCoins(): List<FavCoin> {
         return favCoinQueries.selectAll().executeAsList()
     }

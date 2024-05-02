@@ -7,6 +7,7 @@ class FavouriteCoinsViewViewModel: ObservableObject {
     let twelveHoursAgo: TimeInterval
     @Published var FavCoinData: [FavCoin_] = []
     @Published var favCoinIds: [String] = []
+    @Published var apiIsffline = false
     var timeStamps: [Int64] = []
     var prices: [Double] = []
     var dates: [Date] = []
@@ -106,6 +107,7 @@ class FavouriteCoinsViewViewModel: ObservableObject {
                         }
                     }
                 }else{
+                    self.apiIsffline = true;  
                     print("app is offline")
                     if let localData = UserDefaults.standard.array(forKey: "chartData"){
                         print("local")
