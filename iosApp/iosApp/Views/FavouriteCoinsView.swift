@@ -29,12 +29,13 @@ struct FavouriteCoinsView: View {
                                 }
                             }
                             
-                        } else {
-                            ProgressView("Loading...")
-                        }
+                        } 
                         if viewModel.chartArray.isEmpty {
-                            Text("Too many calls.")
-                        }
+                            VStack{
+                                ForEach(viewModel.offlineCoinData, id: \.coinId){ i in
+                                    Text(i.coinName)
+                                }
+                            }                        }
                     }
                 }.onAppear(perform: {
                     viewModel.getFavDetails()
@@ -43,9 +44,7 @@ struct FavouriteCoinsView: View {
                 }
                 )}
             else{
-                VStack{
-                    Text("API appears to be offline, try again to view charts").bold()
-                }
+              
             }
         }else{
             Text("Add some items to favourite first")

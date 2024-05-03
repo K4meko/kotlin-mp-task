@@ -89,17 +89,20 @@ class ApiCalls {
     }
     suspend fun getChartData(favId: String): ChartData{
         println("test")
+
         try{
+
         val response =
             client.get("https://api.coingecko.com/api/v3/coins/$favId/market_chart?vs_currency=czk&days=5&interval=daily") {
                 headers {
                     append(HttpHeaders.Authorization, "CG-eXyDCd2qaufFfBCbuXsoKYG6")
                 }
             }
-        if (!response.status.isSuccess()) {
-            println("API request failed with status: ${response.status}")
-            return ChartData(emptyList())
-        }
+            if (!response.status.isSuccess()) {
+                println("API request failed with status: ${response.status}")
+                return ChartData(emptyList())
+            }
+
         val body = response
 
         var json = Json { ignoreUnknownKeys = true }

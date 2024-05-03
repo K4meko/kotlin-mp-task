@@ -26,6 +26,9 @@ class LocalDatabase {
     fun testDelete(){
         testQueries.deleteAll()
     }
+    fun testSelect(): List<Test> {
+        return testQueries.selectAll().executeAsList()
+    }
     fun testInsert(id: String, name: String, image: String, current_price: Double, high_24h: Double, low_24h: Double){
       testQueries.insert(id, name, image, current_price, high_24h, low_24h)
     }

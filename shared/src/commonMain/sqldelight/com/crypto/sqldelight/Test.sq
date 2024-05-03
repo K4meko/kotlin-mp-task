@@ -9,7 +9,7 @@ CREATE TABLE Test (
 
 selectAll:
 SELECT *
-FROM FavCoin;
+FROM Test;
 
 insert:
 INSERT INTO Test (coin_id, coin_name, image, current_price, high_24h, low_24h)
