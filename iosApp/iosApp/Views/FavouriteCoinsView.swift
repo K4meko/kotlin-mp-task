@@ -14,38 +14,59 @@ struct FavouriteCoinsView: View {
 
     var body: some View {
         if !viewModel.nofavItems{
-            if !viewModel.apiIsffline{
-                VStack {
+            VStack {
+                if viewModel.offlineCoinData.isEmpty{
+                    if !viewModel.uiChartData.isEmpty {
                     ScrollView {
-                        if !viewModel.uiChartData.isEmpty {
-                            ForEach(viewModel.FavCoinData, id: \.self) { i in
-                                VStack {
-                                    Text(i.name).font(.title).padding(.bottom, 20).fontWeight(.semibold)
-                                    
-                                    Text("Current price: \(i.current_price) czk")
-                                    
-                                    LineChart(data: viewModel.uiChartData.filter { $0.id == i.id }, title: i.name)
-                                    Divider().frame(height: 30)
-                                }
+                        ForEach(viewModel.FavCoinData, id: \.self) { i in
+                            VStack {
+                                Text(i.name).font(.title).padding(.bottom, 20).fontWeight(.semibold)
+                                
+                                Text("Current price: \(i.current_price) czk")
+                                
+                                LineChart(data: viewModel.uiChartData.filter { $0.id == i.id }, title: i.name)
+                                Divider().frame(height: 30)
                             }
-                            
-                        } 
-                        if viewModel.chartArray.isEmpty {
-                            VStack{
-                                ForEach(viewModel.offlineCoinData, id: \.coinId){ i in
-                                    Text(i.coinName)
-                                }
-                            }                        }
+                        }
                     }
+                }
+                else{
+                    ProgressView()
+                }}
+                        if !viewModel.offlineCoinData.isEmpty {
+                                VStack(alignment: .center){
+                                    Text("Try again to view charts").padding(.bottom)
+                                    ScrollView{
+                                        ForEach(viewModel.offlineCoinData, id: \.coinId){ i in
+                                            VStack(alignment: .leading){
+                                                HStack{
+                                                    Text(i.coinName).bold().font(.title2)
+                                                    Text("\(String(format: "%.2f", i.currentPrice.rounded(toPlaces: 2))) CZK")
+                                                    Spacer()
+                                                }.padding(2)
+                                                VStack(alignment: .leading){
+                                                    Text("Highest price today: \(String(format: "%.2f", i.high24.rounded(toPlaces: 2))) CZK").fontWeight(.light).foregroundStyle(.green)
+                                                    Text("Lowest price today: \(String(format: "%.2f", i.low24.rounded(toPlaces: 2)))").fontWeight(.light).foregroundStyle(.red)
+                                                    
+                                                }.padding(2)
+                                                //Divider()
+                                            }.padding(20).frame(width: 360).frame(height: 110).overlay(
+                                                RoundedRectangle(cornerRadius: 16)
+                                                    .stroke(Color(UIColor.lightGray), lineWidth: 2).padding(1)
+                                            )
+                                            Spacer().frame(height: 20)
+                                        }
+                                    }
+                                }
+                            
+                        }
+                    
                 }.onAppear(perform: {
                     viewModel.getFavDetails()
                     print("appearing")
                     // print(viewModel.uiChartData)
                 }
-                )}
-            else{
-              
-            }
+                )
         }else{
             Text("Add some items to favourite first")
         }

@@ -79,7 +79,7 @@ class FavouriteCoinsViewViewModel: ObservableObject {
                         self.offlineCoinData.append(OfflineCoinData(coinId: i.coin_id, coinName: i.coin_name, image: i.image ?? "", currentPrice: i.current_price, high24: i.high_24h as! Double, low24: i.low_24h as! Double))
                     }
                     print(self.offlineCoinData)
-                   // self.apiIsffline = true
+                    self.uiChartData = []
                     print("app is offline")
                     if let localData = UserDefaults.standard.array(forKey: "chartData") {
                         print("local")
@@ -106,7 +106,7 @@ class FavouriteCoinsViewViewModel: ObservableObject {
     }
 
     func getFavDetails() {
-        //self.FavCoinData = []
+        self.offlineCoinData = []
         favCoinIds = []
         for i in LocalDatabase().getFavCoins() {
             favCoinIds.append(i.coin_id)
@@ -146,11 +146,12 @@ class FavouriteCoinsViewViewModel: ObservableObject {
                     }
                 }
                 else {
+                    self.uiChartData = []
+                    self.chartArray = []
                     for i in LocalDatabase().testSelect(){
                         self.offlineCoinData.append(OfflineCoinData(coinId: i.coin_id, coinName: i.coin_name, image: i.image ?? "", currentPrice: i.current_price, high24: i.high_24h as! Double, low24: i.low_24h as! Double))
                     }
                     print(offlineCoinData)
-                  //  self.apiIsffline = true
                     print("app is offline")
                 }
             }
