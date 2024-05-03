@@ -17,11 +17,22 @@ struct HomeView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack {
                             ForEach(cryptoData.coins, id: \.item.id) { coinItem in
-                                
                                 HStack(alignment: .center) {
                                    
                                     VStack(alignment: .leading) {
                                         HStack {
+//                                            Button {
+//                                                if !viewModel.isFav(id: coinItem.item.id as! String){
+//                                                    viewModel.addFav(coinId: coinItem.item.id, coinName: coinItem.item.name)
+//                                                    print("K")
+//                                                } else {
+//                                                    viewModel.removeFav(id: coinItem.id)
+//                                                    print("L")
+//                                                }
+//                                            } label: {
+//                                                viewModel.isFav(id: coinItem.item.id as! String) ? Image(systemName: "heart.fill").padding(.leading) : Image(systemName: "heart").padding(.leading)
+//                                            }.foregroundStyle(.black).contentTransition(.symbolEffect(.replace))
+                                            
                                             if viewModel.isFav(id: coinItem.item.id){
                                                 Button {
                                                     print("removing fav coin")
@@ -39,11 +50,11 @@ struct HomeView: View {
                                                 } label: {
                                                    Image(systemName: "heart").padding(.leading)
                                                 }.foregroundStyle(.black)
-                                            }
+                                           }
                                             Text(coinItem.item.name)
                                                 .font(.title2).bold().fixedSize()
                                             Spacer()
-                                        }
+                                       }
 
                                         if let _pricebtc = coinItem.item.data.priceBtc {
                                             if _pricebtc.prefix(6) == "0.0000" {
