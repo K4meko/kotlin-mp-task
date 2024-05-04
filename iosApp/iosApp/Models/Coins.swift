@@ -26,7 +26,7 @@ struct Coin: Codable {
 
     enum CodingKeys: String, CodingKey {
         case id, coinId, name, symbol, marketCapRank, thumb, small, large, slug, score, data
-        case priceBtc = "price_btc" // Mapping "price_btc" JSON key to `priceBtc` property
+        case priceBtc = "price_btc" 
     }
 }
 

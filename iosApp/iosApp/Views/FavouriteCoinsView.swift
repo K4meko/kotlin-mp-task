@@ -23,8 +23,15 @@ struct FavouriteCoinsView: View {
                                 Text(i.name).font(.title).padding(.bottom, 20).fontWeight(.semibold)
                                 
                                 Text("Current price: \(i.current_price) czk")
-                                
-                                LineChart(data: viewModel.uiChartData.filter { $0.id == i.id }, title: i.name)
+                                //check if uiChartData with i.id exists
+                                if viewModel.uiChartData.contains(where: { $0.id == i.id }) {
+                                               LineChart(data: viewModel.uiChartData.filter { $0.id == i.id }, title: i.name)
+                                           }
+                                else{
+                                    VStack{
+                                        Text("Sorry, could not load your charts due to an API failure, so here's a cookie for you instead 🍪").font(.title2)
+                                    }.frame(height: 150).frame(width: 300)
+                                }
                                 Divider().frame(height: 30)
                             }
                         }
@@ -56,6 +63,7 @@ struct FavouriteCoinsView: View {
                                             )
                                             Spacer().frame(height: 20)
                                         }
+                                        Spacer().frame(height: 30)
                                     }
                                 }
                             

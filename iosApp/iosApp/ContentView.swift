@@ -40,18 +40,33 @@ struct ContentView: View {
 struct CustomTabItemStyle: TabItemStyle {
     public func tabItem(icon: String, title: String, isSelected: Bool) -> some View {
         ZStack {
+            if icon == "heart.fill"{
             if isSelected {
-               
                 Image(systemName: icon).resizable().aspectRatio(contentMode: .fit)
                     .foregroundColor(isSelected ? .red : Color(.gray))
                     .frame(width: 28.0, height: 28.0)
             }
             else{
                 Image(systemName: icon).resizable().aspectRatio(contentMode: .fit)
-                    .foregroundColor(isSelected ? .red : Color(.gray))
+                    .foregroundColor(isSelected ? .black : Color(.gray))
                     .frame(width: 20.0, height: 20.0)
             }
         }
+            else{
+                if isSelected {
+                    Image(systemName: icon).resizable().aspectRatio(contentMode: .fit)
+                        .foregroundColor(isSelected ? .black : Color(.gray))
+                        .frame(width: 28.0, height: 28.0)
+                }
+                else{
+                    Image(systemName: icon).resizable().aspectRatio(contentMode: .fit)
+                        .foregroundColor(isSelected ? .black : Color(.gray))
+                        .frame(width: 20.0, height: 20.0)
+                }
+            }
+            
+            
+    }
         .padding(.vertical, 8.0)
     }
     

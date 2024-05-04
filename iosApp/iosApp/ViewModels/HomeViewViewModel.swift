@@ -4,13 +4,13 @@ import shared
 class HomeViewViewModel: ObservableObject {
     @Published var text = "Loading..."
     @Published var trendingCoinData: ResponseData? = nil
-    @Published var searchCoinData: ResponseData? = nil
     @Published var btc_price: String? = nil
     @Published var favCoinsIds: [String] = []
     @Published var favCoins: [FavCoin] = LocalDatabase().getFavCoins()
 
     init() {
         print("home view")
+        
 
         ApiCalls().getTrending { [self] data, _ in
 

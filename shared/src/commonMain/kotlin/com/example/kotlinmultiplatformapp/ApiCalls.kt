@@ -88,7 +88,7 @@ class ApiCalls {
         }
     }
     suspend fun getChartData(favId: String): ChartData{
-        println("test")
+
 
         try{
 
@@ -107,6 +107,7 @@ class ApiCalls {
 
         var json = Json { ignoreUnknownKeys = true }
         val coinsResponse = json.decodeFromString(ChartData.serializer(), response.bodyAsText())
+            print("coinResponse: $coinsResponse")
         return coinsResponse
         }
     catch (e: Exception){

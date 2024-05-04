@@ -37,7 +37,7 @@ class SearchViewViewModel: ObservableObject {
     func getSearchJson() {
         if searchText.count > 2 && searchText.count < 9 {
             debounce_timer?.invalidate()
-            debounce_timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [self] _ in
+            debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [self] _ in
                 ApiCalls().getSearch(query: searchText) { data, _ in
                     guard let data = data else {
                         return
