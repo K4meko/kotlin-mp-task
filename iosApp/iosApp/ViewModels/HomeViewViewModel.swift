@@ -10,13 +10,11 @@ class HomeViewViewModel: ObservableObject {
 
     init() {
         print("home view")
-        
 
         ApiCalls().getTrending { [self] data, _ in
 
             if let data = data {
                 if data.isEmpty {
-                 
                     self.getFavIds()
                     self.trendingCoinData = nil
                 } else {
@@ -30,9 +28,10 @@ class HomeViewViewModel: ObservableObject {
             }
         }
     }
-    func isFav(id: String) -> Bool{
+
+    func isFav(id: String) -> Bool {
         for i in favCoins {
-            if i.coin_id == id{
+            if i.coin_id == id {
                 print(id)
                 return true
             }
@@ -54,7 +53,8 @@ class HomeViewViewModel: ObservableObject {
         }
         return ResponseData(coins: [], nfts: [], categories: [])
     }
-    func addFav(coinId: String, coinName: String){
+
+    func addFav(coinId: String, coinName: String) {
         LocalDatabase().insertFavCoin(coin_id: coinId, coin_name: coinName)
         LocalDatabase().getFavCoins()
         getFavIds()
@@ -65,11 +65,11 @@ class HomeViewViewModel: ObservableObject {
         LocalDatabase().getFavCoins()
         getFavIds()
     }
-    func getFavIds(){
-        self.favCoins = LocalDatabase().getFavCoins()
-       }
-}
 
+    func getFavIds() {
+        favCoins = LocalDatabase().getFavCoins()
+    }
+}
 
 let jsonString = """
 {

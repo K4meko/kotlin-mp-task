@@ -26,7 +26,7 @@ struct Coin: Codable {
 
     enum CodingKeys: String, CodingKey {
         case id, coinId, name, symbol, marketCapRank, thumb, small, large, slug, score, data
-        case priceBtc = "price_btc" 
+        case priceBtc = "price_btc"
     }
 }
 
@@ -74,6 +74,7 @@ struct NFTData: Codable {
     let h24AverageSalePrice: String?
     let sparkline: URL?
 }
+
 struct Category: Codable {
     let id: Int
     let name: String

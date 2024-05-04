@@ -16,6 +16,7 @@
 		EC79FF4D2BDE95740010E7CE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC79FF4C2BDE95740010E7CE /* Extension.swift */; };
 		ECCBC8D12BE4EA2100B6F254 /* OfflineCoinData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCBC8D02BE4EA2100B6F254 /* OfflineCoinData.swift */; };
 		ECCBC8D42BE514DB00B6F254 /* TabBar in Frameworks */ = {isa = PBXBuildFile; productRef = ECCBC8D32BE514DB00B6F254 /* TabBar */; };
+		ECCBC8D62BE685E000B6F254 /* HomeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCBC8D52BE685E000B6F254 /* HomeItemView.swift */; };
 		ECDC8E492BE0C2FA00B3B800 /* FavouriteCoinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDC8E482BE0C2FA00B3B800 /* FavouriteCoinsView.swift */; };
 		ECDC8E4B2BE0C55B00B3B800 /* FavouriteCoinsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDC8E4A2BE0C55B00B3B800 /* FavouriteCoinsViewViewModel.swift */; };
 		ECDC8E4D2BE165AA00B3B800 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDC8E4C2BE165AA00B3B800 /* ChartData.swift */; };
@@ -49,6 +50,7 @@
 		EC79FF462BDE4CFA0010E7CE /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchView.swift; path = ../../../../../Documents/SearchView.swift; sourceTree = "<group>"; };
 		EC79FF4C2BDE95740010E7CE /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extension.swift; path = ../../../../../Documents/Extension.swift; sourceTree = "<group>"; };
 		ECCBC8D02BE4EA2100B6F254 /* OfflineCoinData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineCoinData.swift; sourceTree = "<group>"; };
+		ECCBC8D52BE685E000B6F254 /* HomeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemView.swift; sourceTree = "<group>"; };
 		ECDC8E482BE0C2FA00B3B800 /* FavouriteCoinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCoinsView.swift; sourceTree = "<group>"; };
 		ECDC8E4A2BE0C55B00B3B800 /* FavouriteCoinsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCoinsViewViewModel.swift; sourceTree = "<group>"; };
 		ECDC8E4C2BE165AA00B3B800 /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				ECE1687A2BDC1CF3005D5E09 /* HomeView.swift */,
 				EC79FF462BDE4CFA0010E7CE /* SearchView.swift */,
 				ECDC8E482BE0C2FA00B3B800 /* FavouriteCoinsView.swift */,
+				ECCBC8D52BE685E000B6F254 /* HomeItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				ECDC8E4B2BE0C55B00B3B800 /* FavouriteCoinsViewViewModel.swift in Sources */,
 				ECE168802BDC50A4005D5E09 /* HomeViewViewModel.swift in Sources */,
 				ECE1687E2BDC1D36005D5E09 /* Crypto.swift in Sources */,
+				ECCBC8D62BE685E000B6F254 /* HomeItemView.swift in Sources */,
 				ECE168822BDC530B005D5E09 /* Coins.swift in Sources */,
 				EC79FF472BDE4CFA0010E7CE /* SearchView.swift in Sources */,
 				ECE1687B2BDC1CF3005D5E09 /* HomeView.swift in Sources */,

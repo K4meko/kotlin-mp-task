@@ -31,7 +31,7 @@ class FavouriteCoinsViewViewModel: ObservableObject {
         for i in favCoinIds {
             ApiCalls().getChartData(favId: i) { Data, _ in
                 print("Data")
-               // print(Data)
+                // print(Data)
                 semaphore.wait()
                 defer { semaphore.signal() }
                 if let data = Data?.prices {

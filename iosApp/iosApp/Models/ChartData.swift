@@ -1,10 +1,10 @@
 
-//import Foundation
+// import Foundation
 //
-//struct ChartData {
+// struct ChartData {
 //    var history: [History]
-//}
-//struct History {
+// }
+// struct History {
 //    var price: Double
 //    var date : Date
-//}
+// }
