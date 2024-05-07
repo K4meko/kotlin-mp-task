@@ -20,7 +20,7 @@ struct FavouriteCoinsView: View {
                         ScrollView {
                             ForEach(viewModel.FavCoinData, id: \.self) { i in
                                 VStack {
-                                    Text(i.name).font(.title).padding(.bottom, 20).fontWeight(.semibold)
+                                    Text("\(i.name)").font(.title).padding(.bottom, 20).fontWeight(.semibold)
 
                                     Text("Current price: \(String(format: "%.2f", i.current_price.rounded(toPlaces: 2))) czk")
                                     if viewModel.uiChartData.contains(where: { $0.id == i.id }) {
